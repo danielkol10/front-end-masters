@@ -4,7 +4,7 @@
   height: 458px;
   background: url(mondrian2.png) no-repeat;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 5px;
   grid-template-rows: 70px 17px 60px 54px 86px 147px;
   grid-template-columns: 304px 92px 153px 68px;
 }
