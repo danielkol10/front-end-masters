@@ -1,10 +1,24 @@
-import React, { useState } from "react";
-// eslint-disable-next-line no-unused-vars
-import { ANIMALS } from "@frontendmasters/pet";
+import React, { useState, useEffect } from "react";
+import pet, { ANIMALS } from "@frontendmasters/pet";
+import useDropdown from "./useDropdown";
 
 const SearchParams = () => {
   const [location, setLocation] = useState("Seattle, WA");
-  const [animal, setAnimal] = useState("dog");
+  const [breeds, setBreeds] = useState([]);
+  const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
+  // eslint-disable-next-line no-unused-vars
+  const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
+
+  useEffect(() => {
+    setBreeds([]);
+    setBreed("");
+
+    pet.breeds(animal).then(({ breeds }) => {
+      const breedStrings = breeds.map(({ name }) => name);
+      setBreeds(breedStrings);
+      // eslint-disable-next-line no-console
+    }, console.error);
+  }, [setBreed, setBreeds, animal]);
 
   return (
     <div className="search-params">
@@ -18,22 +32,8 @@ const SearchParams = () => {
             onChange={event => setLocation(event.target.value)}
           />
         </label>
-        <label htmlFor="animal">
-          <select
-            id="animal"
-            value={animal}
-            onChange={event => setAnimal(event.target.value)}
-            onBlur={event => setAnimal(event.target.value)}
-          >
-            <option>All</option>
-            {ANIMALS.map(animal => (
-              <option key={animal} value={animal}>
-                {" "}
-                {animal}
-              </option>
-            ))}
-          </select>
-        </label>
+        <AnimalDropdown />
+        <BreedDropdown />
         <button>Submit</button>
       </form>
     </div>
