@@ -34,8 +34,11 @@ class Details extends React.Component {
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${location}`}</h2>
           <ThemeContext.Consumer>
-            {theme => (
-              <button style={{ backgroundColor: theme.buttonColor }}>
+            {([theme]) => (
+              <button
+                style={{ backgroundColor: theme }}
+                onClick={this.toggleModal}
+              >
                 Adopt {name}
               </button>
             )}
