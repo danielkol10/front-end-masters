@@ -18,7 +18,7 @@ class Carousel extends React.Component {
 
   handleIndexClick = event => {
     this.setState({
-      active: +event.target.datase.index
+      active: +event.target.dataset.index
     });
   };
 
